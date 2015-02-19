@@ -1,9 +1,16 @@
 package com.ioof.innovation.ioofsuperfit;
 
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.net.Uri;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
+import android.support.v4.app.RemoteInput;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -14,26 +21,54 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
     }
 
+    public void onNotification1Click(View v){
+        int notificationId = 01;
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+        NotificationCompat.Builder notificationBuilder =
+                new NotificationCompat.Builder(this)
+                    .setContentTitle(getString(R.string.app_name))
+                    .setContentText(getString(R.string.notification_1_text))
+                    .setSmallIcon(R.drawable.ic_launcher)
+                    .extend(new NotificationCompat.WearableExtender()
+                                    .addAction(createCallAction())
+                                    .addAction(createEmailAction())
+
+                    );
+
+        NotificationManagerCompat notificationManager =
+                NotificationManagerCompat.from(this);
+
+        notificationManager.notify(notificationId, notificationBuilder.build());
+
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    private NotificationCompat.Action createEmailAction() {
+        RemoteInput remoteInput = new RemoteInput.Builder("email.message")
+                .setLabel(getString(R.string.message_label))
+                .build();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+        Intent emailIntent = new Intent(getApplicationContext(), EmailActivity.class);
 
-        return super.onOptionsItemSelected(item);
+        PendingIntent emailPendingIntent =
+                PendingIntent.getActivity(this, 0, emailIntent, 0);
+
+        return new NotificationCompat.Action.Builder(R.drawable.abc_textfield_activated_mtrl_alpha,
+                getString(R.string.email_label), emailPendingIntent)
+                .addRemoteInput(remoteInput)
+                .build();
     }
+
+    private NotificationCompat.Action createCallAction() {
+        Intent callIntent = new Intent(Intent.ACTION_CALL);
+        Uri phoneURI = Uri.parse("tel:" + getString(R.string.phone_number));
+
+        callIntent.setData(phoneURI);
+        PendingIntent callPendingIntent =
+                PendingIntent.getActivity(this, 0, callIntent, 0);
+
+        return new NotificationCompat.Action.Builder(R.drawable.common_full_open_on_phone,
+                getString(R.string.call_label), callPendingIntent)
+                .build();
+    }
+
 }
