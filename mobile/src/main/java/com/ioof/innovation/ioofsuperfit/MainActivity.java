@@ -2,6 +2,7 @@ package com.ioof.innovation.ioofsuperfit;
 
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
@@ -30,10 +31,12 @@ public class MainActivity extends ActionBarActivity {
                     .setContentText(getString(R.string.notification_1_text))
                     .setSmallIcon(R.drawable.ic_launcher)
                     .extend(new NotificationCompat.WearableExtender()
-                                    .addAction(createCallAction())
-                                    .addAction(createEmailAction())
+                            .setBackground(BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.background))
+                                    .setHintHideIcon(true)
+                                            .addAction(createCallAction())
+                                            .addAction(createEmailAction())
 
-                    );
+                            );
 
         NotificationManagerCompat notificationManager =
                 NotificationManagerCompat.from(this);
@@ -55,6 +58,7 @@ public class MainActivity extends ActionBarActivity {
         return new NotificationCompat.Action.Builder(R.drawable.abc_textfield_activated_mtrl_alpha,
                 getString(R.string.email_label), emailPendingIntent)
                 .addRemoteInput(remoteInput)
+                .
                 .build();
     }
 
