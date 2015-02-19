@@ -25,18 +25,22 @@ public class MainActivity extends ActionBarActivity {
     public void onNotification1Click(View v){
         int notificationId = 01;
 
+        NotificationCompat.BigTextStyle bigTextStyle = new NotificationCompat.BigTextStyle();
+        bigTextStyle.setBigContentTitle("IOOF Superfit")
+                .bigText(getString(R.string.notification_1_text));
+
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this)
                     .setContentTitle(getString(R.string.app_name))
-                    .setContentText(getString(R.string.notification_1_text))
                     .setSmallIcon(R.drawable.ic_launcher)
+                    .setPriority(100)
+                    .setStyle(bigTextStyle)
+                    .setColor(0xffffffff)
                     .extend(new NotificationCompat.WearableExtender()
-                            .setBackground(BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.background))
-                                    .setHintHideIcon(true)
-                                            .addAction(createCallAction())
-                                            .addAction(createEmailAction())
-
-                            );
+                                    .setBackground(BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.background))
+                                    .addAction(createCallAction())
+                                    .addAction(createEmailAction())
+                    );
 
         NotificationManagerCompat notificationManager =
                 NotificationManagerCompat.from(this);
@@ -58,7 +62,6 @@ public class MainActivity extends ActionBarActivity {
         return new NotificationCompat.Action.Builder(R.drawable.abc_textfield_activated_mtrl_alpha,
                 getString(R.string.email_label), emailPendingIntent)
                 .addRemoteInput(remoteInput)
-                .
                 .build();
     }
 
