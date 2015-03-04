@@ -3,6 +3,7 @@
     package="com.ioof.innovation.ioofsuperfit" >
 
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"

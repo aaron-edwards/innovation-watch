@@ -9,9 +9,20 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Notification 1"
+        android:text="Fund Update"
         android:id="@+id/notification1_button"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:onClick="onNotification1Click"/>
+        android:onClick="onNotification1Click"
+        android:layout_marginBottom="21dp"
+        android:layout_above="@+id/button"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Contribution Made"
+        android:onClick="onNotification2Click"
+        android:id="@+id/button"
+        android:layout_marginBottom="46dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

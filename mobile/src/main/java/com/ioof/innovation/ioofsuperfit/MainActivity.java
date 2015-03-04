@@ -1,5 +1,6 @@
 package com.ioof.innovation.ioofsuperfit;
 
+import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
@@ -36,11 +37,39 @@ public class MainActivity extends ActionBarActivity {
                     .setPriority(100)
                     .setStyle(bigTextStyle)
                     .setColor(0xffffffff)
+                        .setVibrate(new long [] {1000, 1000, 1000})
                     .extend(new NotificationCompat.WearableExtender()
                                     .setBackground(BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.background))
                                     .addAction(createCallAction())
                                     .addAction(createEmailAction())
                     );
+
+        NotificationManagerCompat notificationManager =
+                NotificationManagerCompat.from(this);
+
+        notificationManager.notify(notificationId, notificationBuilder.build());
+
+    }
+
+    public void onNotification2Click(View v){
+        int notificationId = 02;
+
+        NotificationCompat.BigTextStyle bigTextStyle = new NotificationCompat.BigTextStyle();
+        bigTextStyle.setBigContentTitle("IOOF Superfit")
+                .bigText(getString(R.string.notification_2_text));
+
+        NotificationCompat.Builder notificationBuilder =
+                new NotificationCompat.Builder(this)
+                        .setContentTitle(getString(R.string.app_name))
+                        .setSmallIcon(R.drawable.ic_launcher)
+                        .setPriority(100)
+                        .setStyle(bigTextStyle)
+                        .setColor(0xffffffff)
+                        .setVibrate(new long [] {1000, 1000, 1000})
+                        .extend(new NotificationCompat.WearableExtender()
+                                        .setBackground(BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.background))
+
+                        );
 
         NotificationManagerCompat notificationManager =
                 NotificationManagerCompat.from(this);
@@ -59,7 +88,7 @@ public class MainActivity extends ActionBarActivity {
         PendingIntent emailPendingIntent =
                 PendingIntent.getActivity(this, 0, emailIntent, 0);
 
-        return new NotificationCompat.Action.Builder(R.drawable.abc_textfield_activated_mtrl_alpha,
+        return new NotificationCompat.Action.Builder(R.drawable.ic_stat_mail,
                 getString(R.string.email_label), emailPendingIntent)
                 .addRemoteInput(remoteInput)
                 .build();
@@ -73,7 +102,7 @@ public class MainActivity extends ActionBarActivity {
         PendingIntent callPendingIntent =
                 PendingIntent.getActivity(this, 0, callIntent, 0);
 
-        return new NotificationCompat.Action.Builder(R.drawable.common_full_open_on_phone,
+        return new NotificationCompat.Action.Builder(R.drawable.ic_stat_call,
                 getString(R.string.call_label), callPendingIntent)
                 .build();
     }

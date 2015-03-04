@@ -26,7 +26,7 @@ public class EmailActivity extends ActionBarActivity {
 
         emailIntent.setType("message/rfc822");
         emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{getString(R.string.email_address)});
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "What is up IOOF!");
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "IOOF SuperBit");
         emailIntent.putExtra(Intent.EXTRA_TEXT, messageBody);
 
         startActivity(emailIntent);
